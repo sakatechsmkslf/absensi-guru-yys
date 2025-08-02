@@ -8,7 +8,10 @@
 <body>
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
-            @include('layout.nav')
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+                @include('layout.nav')
+            </nav>
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     @include('layout.sidebar')
