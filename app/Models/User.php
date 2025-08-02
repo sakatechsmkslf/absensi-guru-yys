@@ -54,4 +54,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(Instansi::class);
     }
+
+    /**
+     * Get all of the presensi for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function presensi(): HasMany
+    {
+        return $this->hasMany(Presensi::class);
+    }
+
+    /**
+     * Get all of the jadwal for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function jadwal(): HasMany
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }
