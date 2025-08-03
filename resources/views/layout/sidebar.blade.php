@@ -3,7 +3,7 @@
  </div>
  <div class="sidebar-brand sidebar-brand-sm">
      {{-- <a href="index.html">Slf</a> --}}
-     <img src="{{asset('asset/image/logoYayasan.png')}}" alt="Logo" width="50pt">
+     <img src="{{asset('asset/image/logoYayasan.png')}}" alt="Logo" width="50pt" class="mt-1">
  </div>
  <ul class="sidebar-menu">
      <li class="menu-header mt-5">Dashboard</li>
