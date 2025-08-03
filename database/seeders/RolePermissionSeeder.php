@@ -15,7 +15,7 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-
+        //crud
         Permission::create(['name' => 'manage users']);
         Permission::create(['name' => 'manage instansi']);
         Permission::create(['name' => 'manage presensi']);
@@ -23,11 +23,25 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'manage tapel']);
         Permission::create(['name' => 'manage hari_libur']);
         Permission::create(['name' => 'manage jadwal']);
+
+        //hanya view saja. apabila sudah mempunyai permission manage maka tidak usah diberi permission view
+        Permission::create(['name' => 'view all users']);
+        Permission::create(['name' => 'view all jadwal']);
+        Permission::create(['name' => 'view all presensi']);
+        Permission::create(['name' => 'view all instansi']);
+        Permission::create(['name' => 'view all kaldik']);
+        Permission::create(['name' => 'view all tapel']);
+        Permission::create(['name' => 'view all hari_libur']);
+
+        //permission view tapi hanya yang dimiliki oleh user. contoh: user 1 hanya bisa melihat jadwalnya dia sendiri dan tidak bisa melihat jadwal user lain
+        Permission::create(['name' => 'view self profile']);
+        Permission::create(['name' => 'view self riwayat absen']);
+        Permission::create(['name' => 'view self jadwal']);
+
+
+        //lain lain
         Permission::create(['name' => 'rekap presensi']);
 
-        Permission::create(['name' => 'view users']);
-        Permission::create(['name' => 'view jadwal']);
-        Permission::create(['name' => 'view riwayat absen']);
 
         $permission = Permission::all();
 
