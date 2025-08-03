@@ -1,29 +1,29 @@
  <div class="sidebar-brand">
-     <a href="index.html">Stisla</a>
+     <img src="{{asset('asset/image/logoYayasan.png')}}" alt="Logo" width="" height="100pt" class="mt-2" >
  </div>
  <div class="sidebar-brand sidebar-brand-sm">
-     <a href="index.html">St</a>
+     {{-- <a href="index.html">Slf</a> --}}
+     <img src="{{asset('asset/image/logoYayasan.png')}}" alt="Logo" width="50pt">
  </div>
  <ul class="sidebar-menu">
-     <li class="menu-header">Dashboard</li>
+     <li class="menu-header mt-5">Dashboard</li>
      <li class="active">
-         <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+         <a href="#" class="nav-link"><i class="fas fa-house"></i><span>Dashboard</span></a>
      </li>
      <li class="menu-header">Management</li>
-     <li class="">
-         <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Management Instansi</span></a>
-         <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Management Tapel</span></a>
-         <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Management Guru</span></a>
-         <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Management Jadwal</span></a>
-         <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Management Admin</span></a>
+     <li class="dropdown">
+            <a href="#" class="nav-link"><i class="fa-solid fa-user-shield"></i><span>Management Peran</span></a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-user-tie"></i><span>Management User</span></a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-school"></i><span>Management Instansi</span></a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Kelola Presensi</span></a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-calendar-alt"></i><span>Management Kaldik</span></a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-book-open"></i><span>Management Tapel</span></a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-calendar-day"></i><span>Management Jadwal</span></a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-umbrella-beach"></i><span>Management Hari Libur</span></a>
      </li>
-     <li class="menu-header">Absensi</li>
+     <li class="menu-header">Rekap</li>
      <li class="">
-        <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Absensi Pengajar</span></a>
-     </li>
-     <li class="menu-header">Recap</li>
-     <li class="">
-        <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Laporan Absensi</span></a>
+        <a href="#" class="nav-link"><i class="fa-solid fa-file-lines"></i><span>Laporan Absensi</span></a>
      </li>
 
 
