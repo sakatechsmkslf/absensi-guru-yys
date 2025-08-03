@@ -17,7 +17,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::all();
+        return view('', compact('user'));
     }
 
     /**
@@ -58,7 +59,7 @@ class UsersController extends Controller
 
         //read image
         $image = $manager->read($request->file('foto'));
-        $image->encode(new AutoEncoder(quality: 50))->save(public_path('foto/'.$imageName));
+        $image->encode(new AutoEncoder(quality: 50))->save(public_path('foto/' . $imageName));
 
         $user = User::create([
             "name" => $request->name,
@@ -90,7 +91,8 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find($id);
+        return view('', compact('user'));
     }
 
     /**
@@ -98,7 +100,45 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $target = User::find($id);
+        $validate = Validator::make($request->all(), [
+            "name" => "required|min:5",
+            "telp" => "required|numeric",
+            "username" => "required",
+            "password" => "required",
+            "uid_rfid" => "required"
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->route('users.create')->withErrors($validate)->withInput();
+        }
+
+        $imageName = time() . '.' . $request->foto->extension();
+
+        // $request->image->move(public_path('images'), $imageName);
+
+        //img intervention
+        $manager = ImageManager::withDriver(new Driver());
+
+        //read image
+        $image = $manager->read($request->file('foto'));
+        $image->encode(new AutoEncoder(quality: 50))->save(public_path('foto/' . $imageName));
+
+        $target->update([
+            "name" => $request->name,
+            "telp" => $request->telp,
+            "username" => $request->username,
+            "password" => $request->password,
+            "uid_rfid" => $request->uid_rfid,
+            "foto" => $imageName
+        ]);
+
+        $target->roles()->sync($request->role_id);
+        $target->roles()->sync($request->instansi_id);
+
+        return redirect()->route('user.index');
+
+
     }
 
     /**
@@ -106,6 +146,8 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $target = User::find($id);
+        $target->delete();
+        return redirect()->route('user.index');
     }
 }
