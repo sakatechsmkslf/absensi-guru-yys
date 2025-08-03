@@ -18,10 +18,6 @@ return new class extends Migration {
             $table->string('password');
             $table->string('uid_rfid');
             $table->string('foto');
-            $table->unsignedBigInteger('instansi_1')->nullable();
-            $table->unsignedBigInteger('instansi_2')->nullable();
-            $table->unsignedBigInteger('instansi_3')->nullable();
-            $table->unsignedBigInteger('instansi_4')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

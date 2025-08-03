@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+
 
 
 class Instansi extends Model
@@ -12,13 +13,13 @@ class Instansi extends Model
     protected $guarded = [];
 
     /**
-     * Get the user associated with the Instansi
+     * The instansi that belong to the Instansi
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function user(): HasOne
+    public function user(): BelongsToMany
     {
-        return $this->hasOne(User::class);
+        return $this->belongsToMany(User::class, 'user_has_instansi');
     }
 
     /**
@@ -50,4 +51,6 @@ class Instansi extends Model
     {
         return $this->hasMany(HariLibur::class);
     }
+
+
 }

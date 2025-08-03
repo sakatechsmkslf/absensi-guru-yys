@@ -4,10 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+
 
 
 class User extends Authenticatable
@@ -46,13 +49,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of the isntansi for the User
+     * The instansi that belong to the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function instansi(): HasMany
+    public function instansi(): BelongsToMany
     {
-        return $this->hasMany(Instansi::class);
+        return $this->belongsToMany(Instansi::class, 'user_has_instansi');
     }
 
     /**
@@ -74,4 +77,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Jadwal::class);
     }
+
 }
