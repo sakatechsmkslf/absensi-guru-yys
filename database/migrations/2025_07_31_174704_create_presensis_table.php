@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('bukti_izin');
             $table->date('tanggal');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
