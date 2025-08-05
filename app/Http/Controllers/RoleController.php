@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Validator;
 
 
 
@@ -33,7 +34,23 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            "name" => "required|uniqe:role, name|string",
+            "permissions" => "required|array",
+            "permissions.*" => "exists:permissions,id"
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->route('users.create')->withErrors($validate)->withInput();
+        }
+
+        $role = Role::create([
+            "name" => $request->name
+        ]);
+
+        $role->syncPermissions($request->permissions);
+        return redirect()->route('role.index');
+
     }
 
     /**
@@ -49,7 +66,9 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $role = Role::find('id');
+        $permission = Permission::all();
+        return view('', compact('role', 'permission'));
     }
 
     /**
@@ -57,7 +76,24 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $target = Role::find($id);
+        $validate = Validator::make($request->all(), [
+            "name" => "required|uniqe:role, name|string",
+            "permissions" => "required|array",
+            "permissions.*" => "exists:permissions,id"
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->route('users.create')->withErrors($validate)->withInput();
+        }
+
+        $target->update([
+            "name" => $request->name
+        ]);
+
+        $target->syncPermissions($request->permission);
+        return redirect()->route('role.index');
+
     }
 
     /**
@@ -65,6 +101,8 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $target = Role::find($id);
+        $target->delete();
+        return redirect()->route('role.index');
     }
 }
