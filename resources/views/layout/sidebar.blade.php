@@ -13,8 +13,8 @@
      <li class="menu-header">Management</li>
      <li class="dropdown">
             <a href="#" class="nav-link"><i class="fa-solid fa-user-shield"></i><span>Management Peran</span></a>
-            <a href="#" class="nav-link"><i class="fa-solid fa-user-tie"></i><span>Management User</span></a>
-            <a href="#" class="nav-link"><i class="fa-solid fa-school"></i><span>Management Instansi</span></a>
+            <a href="{{url('/user')}}" class="nav-link"><i class="fa-solid fa-user-tie"></i><span>Management User</span></a>
+            <a href="" class="nav-link"><i class="fa-solid fa-school"></i><span>Management Instansi</span></a>
             <a href="#" class="nav-link"><i class="fa-solid fa-calendar-check"></i><span>Kelola Presensi</span></a>
             <a href="#" class="nav-link"><i class="fa-solid fa-calendar-alt"></i><span>Management Kaldik</span></a>
             <a href="#" class="nav-link"><i class="fa-solid fa-book-open"></i><span>Management Tapel</span></a>
