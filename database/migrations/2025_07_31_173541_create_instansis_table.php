@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('nama_instansi');
             $table->string('kepala_instansi');
             $table->string('alamat_instansi');
-            $table->text('tepl_instansi');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->text('telp_instansi');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

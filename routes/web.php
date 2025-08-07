@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Routing\Route as RoutingRoute;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard.main');
 });
 
-Route::view('user', 'user.main');
-Route::view('userEdit', 'user.edit');
-Route::view('userTambah', 'user.tambah');
+Route::resource('user', UsersController::class);
+Route::view('/login','login');

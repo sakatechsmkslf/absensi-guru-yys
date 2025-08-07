@@ -2,55 +2,53 @@
 @section('main')
     <section class="section">
         <div class="section-header">
-            <h1>Halaman Management User</h1>
+            <h1>Halaman Management Peran</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">User</a></div>
+                <div class="breadcrumb-item active"><a href="#">Peran</a></div>
                 <div class="breadcrumb-item">Dashboard</div>
             </div>
         </div>
 
         <div class="section-body">
             <div class="shadow pb-2">
-                <a ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////href="{{ route('user.create') }}" class="btn btn-primary m-2 shadow">Tambah Data User</a>
+                <a href="{{ route('user.create') }}" class="btn btn-primary m-2 shadow">Tambah Data peran</a>
             </div>
 
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow">
                         <div class="card-header">
-                            <h4>Data User</h4>
+                            <h4>Data Peran</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md" id="example">
-                                      <thead>
+                                    <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Name</th>
-                                            <th>No Telephone</th>
-                                            <th>Username</th>
-                                            <th>UID</th>
-                                            <th>Foto</th>
+                                            <th>Nama</th>
+                                            <th>Permision</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        @forelse ($user as $item)
+                                        @forelse ($peran as $item)
                                             <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$item->name}}</td>
-                                                <td>{{$item->telp}}</td>
-                                                <td>{{$item->username}}</td>
-                                                <td>{{$item->uid_rfid}}</td>
-                                                <td>{{$item->foto}}</td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->telp }}</td>
                                                 <td class="d-flex gap-2 m-4">
                                                     <a class="btn btn-warning">Edit</a>
                                                     <a href="#" class="btn btn-danger">Hapus</a>
                                                 </td>
+
+                                                {{-- @foreach ($item->tag as $k)
+                                                {{ $k->nama }},
+                                                @endforeach INI CONTOH UNTUK FOREACH --}}
                                             </tr>
                                         @empty
-                                            <p>Data Users Kosong, Perlu di Isi</p>
+                                            <p>Data Peran Kosong, Perlu di Isi</p>
                                         @endforelse
                                     </tbody>
                                 </table>

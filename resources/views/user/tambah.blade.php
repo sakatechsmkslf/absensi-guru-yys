@@ -15,50 +15,68 @@
                     <h5 class="mb-0">Tambah User</h5>
                 </div>
                 <div class="card-body">
-                    <form enctype="multipart/form-data">
-
+                    <form enctype="multipart/form-data" action="{{ route('user.store') }}" method="POST">
+                        @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap">
+                            <label for="name" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Masukkan nama">
                         </div>
 
                         <div class="mb-3">
                             <label for="telp" class="form-label">No Telepon</label>
-                            <input type="text" class="form-control" id="telp" placeholder="08xxxxxxxxxx">
+                            <input type="text" class="form-control" id="telp" name="telp"
+                                placeholder="08xxxxxxxxxx">
                         </div>
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Masukkan username">
+
+                            <input type="text" class="form-control" name="username" id="username"
+                                placeholder="Masukkan username">
                         </div>
 
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Masukkan password">
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Masukkan password">
                         </div>
 
                         <div class="mb-3">
                             <label for="uid_rfid" class="form-label">UID RFID</label>
-                            <input type="text" class="form-control" id="uid_rfid" placeholder="Masukkan UID RFID">
+                            <input type="text" class="form-control" id="uid_rfid" name="uid_rfid"
+                                placeholder="Masukkan UID RFID">
                         </div>
 
                         <div class="mb-3">
                             <label for="foto" class="form-label">Foto</label>
-                            <input type="file" class="form-control" id="foto" accept="image/*">
+                            <input type="file" class="form-control" id="foto" name="foto">
                         </div>
 
                         <div class="mb-3">
-                            <label for="instansi" class="form-label">Instansi</label>
-                            <select class="form-select" id="instansi">
+                            <label class="form-label">Role</label>
+                            <select class="form-select" id="role" name="role_id">
+                                <option selected disabled>Pilih Role</option>
+                                @forelse ($role as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @empty
+                                @endforelse
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="instansi_id" id="instansi_id">
                                 <option selected disabled>Pilih Instansi</option>
-                                <option value="1">Instansi A</option>
-                                <option value="2">Instansi B</option>
-                                <option value="3">Instansi C</option>
+                                <option value="1">SMK</option>
+                                {{-- @forelse ($instansi as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @empty
+                                @endforelse --}}
                             </select>
                         </div>
 
+
                         <div class="text-end">
-                            <button type="button" class="btn btn-primary px-4">Simpan</button>
+                            <button type="submit" class="btn btn-primary px-4">Simpan</button>
                             <button class="btn btn-danger" type="reset">Reset</button>
                         </div>
                     </form>

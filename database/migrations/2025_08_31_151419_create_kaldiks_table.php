@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('tapel_id')->constrained()->onDelete('cascade');
             $table->foreignId('instansi_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
