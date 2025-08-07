@@ -17,7 +17,7 @@ class RoleController extends Controller
     public function index()
     {
         $role = Role::all();
-        return view('', compact('role'));
+        return view('tesrole.index', compact('role'));
     }
 
     /**
@@ -26,7 +26,7 @@ class RoleController extends Controller
     public function create()
     {
         $permission = Permission::all();
-        return view('', compact('permission'));
+        return view('tesrole.tambah', compact('permission'));
     }
 
     /**
@@ -35,20 +35,20 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            "name" => "required|uniqe:role, name|string",
+            "name" => "required|unique:roles,name|string",
             "permissions" => "required|array",
-            "permissions.*" => "exists:permissions,id"
+            "permissions.*" => "exists:permissions,name"
         ]);
 
         if ($validate->fails()) {
-            return redirect()->route('users.create')->withErrors($validate)->withInput();
+            return redirect()->route('role.create')->withErrors($validate)->withInput();
         }
 
         $role = Role::create([
             "name" => $request->name
         ]);
 
-        $role->syncPermissions($request->permissions);
+        $role->givePermissionTo($request->permissions);
         return redirect()->route('role.index');
 
     }
