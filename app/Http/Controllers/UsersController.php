@@ -93,7 +93,8 @@ class UsersController extends Controller
     public function edit(string $id)
     {
         $user = User::find($id);
-        return view('user.edit', compact('user'));
+        // $instansi = User::all();
+        return view('user.edit', compact('user','instansi'));
     }
 
     /**

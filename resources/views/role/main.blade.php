@@ -11,7 +11,7 @@
 
         <div class="section-body">
             <div class="shadow pb-2">
-                <a href="{{ route('user.create') }}" class="btn btn-primary m-2 shadow">Tambah Data peran</a>
+                <a href="{{ route('role.create') }}" class="btn btn-primary m-2 shadow">Tambah Data peran</a>
             </div>
 
             <div class="row">
@@ -27,20 +27,22 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
-                                            <th>Permision</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        @forelse ($peran as $item)
+                                        @forelse ($role as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->name }}</td>
-                                                <td>{{ $item->telp }}</td>
                                                 <td class="d-flex gap-2 m-4">
-                                                    <a class="btn btn-warning">Edit</a>
-                                                    <a href="#" class="btn btn-danger">Hapus</a>
+                                                    <a href="{{route('role.edit', $item->id )}}" class="btn btn-warning">Edit</a>
+                                                    <form action="{{route('role.destroy', $item->id)}}" method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                    </form>
                                                 </td>
 
                                                 {{-- @foreach ($item->tag as $k)

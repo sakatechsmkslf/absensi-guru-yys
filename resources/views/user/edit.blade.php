@@ -15,45 +15,84 @@
                     <h5 class="mb-0">Form Edit User</h5>
                 </div>
                 <div class="card-body">
-                    <form enctype="multipart/form-data">
-
+                    <form enctype="multipart/form-data" action="{{ route('user.store') }}" method="POST">
+                        @csrf
+                        @method('put')
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap">
+                            <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap"
+                                value="{{ $user->name }}">
                         </div>
 
                         <div class="mb-3">
                             <label for="telp" class="form-label">No Telepon</label>
-                            <input type="text" class="form-control" id="telp" placeholder="08xxxxxxxxxx">
+                            <input type="text" class="form-control" id="telp" placeholder="08xxxxxxxxxx"
+                                value="{{ $user->telp }}">
                         </div>
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Masukkan username">
+                            <input type="text" class="form-control" id="username" placeholder="Masukkan username"
+                                value="{{ $user->username }}">
                         </div>
 
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Masukkan password">
+                            <input type="password" class="form-control" id="password" placeholder="Masukkan password"
+                                value="{{ $user->password }}">
                         </div>
 
                         <div class="mb-3">
                             <label for="uid_rfid" class="form-label">UID RFID</label>
-                            <input type="text" class="form-control" id="uid_rfid" placeholder="Masukkan UID RFID">
+                            <input type="text" class="form-control" id="uid_rfid" placeholder="Masukkan UID RFID"
+                                value="{{ $user->uid_rfid }}">
                         </div>
 
                         <div class="mb-3">
                             <label for="foto" class="form-label">Foto</label>
-                            <input type="file" class="form-control" id="foto" accept="image/*">
+
+                            <input type="file" class="form-control" id="foto" name="foto" accept="image/*"
+                                onchange="tampilkanNamaFile()">
+
+                            {{-- preview nama file --}}
+                            <p id="namaFile" class="mt-2 text-muted">File lama: {{ $user->foto }}</p>
+
+                            {{-- preview gambar lama --}}
+                            <img src="{{ asset('foto/' . $user->foto) }}" alt="" width="50%" class="p-2 rounded"
+                                id="previewFoto">
                         </div>
+
+                        <script>
+                            function tampilkanNamaFile() {
+                                const input = document.getElementById('foto');
+                                const namaFile = input.files[0]?.name || "No file chosen";
+                                document.getElementById('namaFile').innerText = `File dipilih: ${namaFile}`;
+
+                                // preview gambar (opsional)
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    document.getElementById('previewFoto').src = e.target.result;
+                                };
+                                if (input.files[0]) reader.readAsDataURL(input.files[0]);
+                            }
+                        </script>
+
+
 
                         <div class="mb-3">
                             <label for="instansi" class="form-label">Instansi</label>
                             <select class="form-select" id="instansi">
+                                @foreach ($instansi as $item)
                                 <option selected disabled>Pilih Instansi</option>
-                                <option value="1">Instansi A</option>
-                                <option value="2">Instansi B</option>
-                                <option value="3">Instansi C</option>
+                                    <option value="{{ $item->id }}"
+                                        {{ old('instansi_id', $instansi->instansi_id) == $item->id ? 'selected' : '' }}>
+                                        {{ $item->nama }}
+                                    </option>
+                                @endforeach
+
+                                {{-- <option value="1">SMK</option>
+                                <option value="2">Ma</option>
+                                <option value="3">MTS</option> --}}
                             </select>
                         </div>
 

@@ -45,8 +45,12 @@
                                                 <td>{{$item->uid_rfid}}</td>
                                                 <td>{{$item->foto}}</td>
                                                 <td class="d-flex gap-2 m-4">
-                                                    <a class="btn btn-warning">Edit</a>
-                                                    <a href="#" class="btn btn-danger">Hapus</a>
+                                                    <a class="btn btn-warning" href="{{route('user.edit', $item->id)}}">Edit</a>
+                                                    <form action="{{route('user.destroy', $item->id)}}" method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button class="btn btn-danger">Hapus</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @empty

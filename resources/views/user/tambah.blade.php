@@ -64,13 +64,11 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <select class="form-select" name="instansi_id" id="instansi_id">
+                           <select class="form-select" id="instansi" name="instansi_id">
                                 <option selected disabled>Pilih Instansi</option>
                                 <option value="1">SMK</option>
-                                {{-- @forelse ($instansi as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                @empty
-                                @endforelse --}}
+                                <option value="2">MA</option>
+                                <option value="3">MTS</option>
                             </select>
                         </div>
 
