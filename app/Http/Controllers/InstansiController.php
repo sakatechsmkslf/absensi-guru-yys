@@ -23,7 +23,7 @@ class InstansiController extends Controller
      */
     public function create()
     {
-        $user = User::all();
+        $user = User::role('admin_yayasan')->get();
         return view('', compact('user'));
     }
 
@@ -53,7 +53,7 @@ class InstansiController extends Controller
 
         $instansi->user()->attach($request->user_id);
 
-        return redirect()->route('');
+        return redirect()->route('instansi.index');
 
     }
 
