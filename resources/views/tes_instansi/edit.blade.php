@@ -19,8 +19,9 @@
         </div>
     @endif
 
-    <form action="{{ route('instansi.store') }}" method="POST">
+    <form action="{{ route('instansi.update', $instansi->id) }}" method="POST">
         @csrf
+        @method('put')
         <input type="text" name="nama_instansi" placeholder="Nama Instansi">
         <input type="text" name="kepala_instansi" placeholder="Kepala Instansi">
         <input type="text" name="alamat_instansi" placeholder="Alamat Instansi">
