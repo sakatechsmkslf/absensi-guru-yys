@@ -1,132 +1,141 @@
 @extends('layout.main')
 @section('main')
-    <section class="section">
-        <div class="section-header" style="">
-            <h1>Edit User</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">User</a></div>
-                <div class="breadcrumb-item">Dashboard</div>
-            </div>
+<section class="section">
+    <div class="section-header">
+        <h1>Edit User</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="#">User</a></div>
+            <div class="breadcrumb-item">Dashboard</div>
         </div>
+    </div>
 
-        <div class="section-body">
-            <div class="card shadow-sm" style="">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Form Edit User</h5>
-                </div>
-                <div class="card-body">
-                    <form enctype="multipart/form-data" action="{{ route('user.store') }}" method="POST">
-                        @csrf
-                        @method('put')
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap"
-                                value="{{ $user->name }}">
+    <div class="section-body">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Form Edit User</h5>
+            </div>
+            <div class="card-body">
+                <form enctype="multipart/form-data" action="{{ route('user.update', $user->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <!-- nama & telp -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                   value="{{ old('name', $user->name) }}" placeholder="Masukkan nama">
                         </div>
-
-                        <div class="mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="telp" class="form-label">No Telepon</label>
-                            <input type="text" class="form-control" id="telp" placeholder="08xxxxxxxxxx"
-                                value="{{ $user->telp }}">
+                            <input type="text" class="form-control" id="telp" name="telp"
+                                   value="{{ old('telp', $user->telp) }}" placeholder="08xxxxxxxxxx">
                         </div>
+                    </div>
 
-                        <div class="mb-3">
+                    <!-- username & password -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Masukkan username"
-                                value="{{ $user->username }}">
+                            <input type="text" class="form-control" id="username" name="username"
+                                   value="{{ old('username', $user->username) }}" placeholder="Masukkan username">
                         </div>
-
-                        <div class="mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Masukkan password"
-                                value="{{ $user->password }}">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Kosongkan jika tidak ingin ubah password">
                         </div>
+                    </div>
 
-                        <div class="mb-3">
+                    <!-- uid & foto -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
                             <label for="uid_rfid" class="form-label">UID RFID</label>
-                            <input type="text" class="form-control" id="uid_rfid" placeholder="Masukkan UID RFID"
-                                value="{{ $user->uid_rfid }}">
+                            <input type="text" class="form-control" id="uid_rfid" name="uid_rfid"
+                                   value="{{ old('uid_rfid', $user->uid_rfid) }}" placeholder="Masukkan UID RFID">
                         </div>
-
-                        <div class="mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="foto" class="form-label">Foto</label>
+                            <input type="file" class="form-control" id="foto" name="foto">
+                            @if ($user->foto)
+                                <p class="mt-2 text-muted">Foto lama:</p>
+                                <img src="{{ asset('foto/' . $user->foto) }}" alt="Foto" width="100" class="rounded">
+                            @endif
+                        </div>
+                    </div>
 
-                            <input type="file" class="form-control" id="foto" name="foto" accept="image/*"
-                                onchange="tampilkanNamaFile()">
-
-                            {{-- preview nama file --}}
-                            <p id="namaFile" class="mt-2 text-muted">File lama: {{ $user->foto }}</p>
-
-                            {{-- preview gambar lama --}}
-                            <img src="{{ asset('foto/' . $user->foto) }}" alt="" width="50%" class="p-2 rounded"
-                                id="previewFoto">
+                    <!-- role & instansi -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <div class="selectgroup selectgroup-pills">
+                                    @forelse ($role as $item)
+                                        <label class="selectgroup-item">
+                                            <input type="checkbox" name="role_id[]"
+                                                value="{{ $item->id }}"
+                                                class="selectgroup-input"
+                                                {{ in_array($item->id, old('role_id', $user->roles->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                            <span class="selectgroup-button">{{ $item->name }}</span>
+                                        </label>
+                                    @empty
+                                        <p class="text-muted mb-0">Tidak ada role</p>
+                                    @endforelse
+                                </div>
+                            </div>
                         </div>
 
-                        <script>
-                            function tampilkanNamaFile() {
-                                const input = document.getElementById('foto');
-                                const namaFile = input.files[0]?.name || "No file chosen";
-                                document.getElementById('namaFile').innerText = `File dipilih: ${namaFile}`;
-
-                                // preview gambar (opsional)
-                                const reader = new FileReader();
-                                reader.onload = function(e) {
-                                    document.getElementById('previewFoto').src = e.target.result;
-                                };
-                                if (input.files[0]) reader.readAsDataURL(input.files[0]);
-                            }
-                        </script>
-
-
-
-                        <div class="mb-3">
-                            <label for="instansi" class="form-label">Instansi</label>
-                            <select class="form-select" id="instansi">
-                                @foreach ($instansi as $item)
-                                <option selected disabled>Pilih Instansi</option>
-                                    <option value="{{ $item->id }}"
-                                        {{ old('instansi_id', $instansi->instansi_id) == $item->id ? 'selected' : '' }}>
-                                        {{ $item->nama }}
-                                    </option>
-                                @endforeach
-
-                                {{-- <option value="1">SMK</option>
-                                <option value="2">Ma</option>
-                                <option value="3">MTS</option> --}}
-                            </select>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Instansi</label>
+                                <div class="selectgroup selectgroup-pills">
+                                    @forelse ($instansi as $item)
+                                        <label class="selectgroup-item">
+                                            <input type="checkbox" name="instansi_id[]"
+                                                value="{{ $item->id }}"
+                                                class="selectgroup-input"
+                                                {{ in_array($item->id, old('instansi_id', $user->instansi->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                            <span class="selectgroup-button">{{ $item->nama_instansi }}</span>
+                                        </label>
+                                    @empty
+                                        <p class="text-muted mb-0">Tidak ada instansi</p>
+                                    @endforelse
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="text-end">
-                            <button type="button" class="btn btn-primary px-4">Simpan</button>
-                            <button class="btn btn-danger" type="reset">Reset</button>
-                        </div>
-                    </form>
-                </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary px-4">Simpan</button>
+                        <button class="btn btn-danger" type="reset">Reset</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection
 
 @push('script')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                "pagingType": "full_numbers", // biar ada prev, next, first, last
-                "language": {
-                    "paginate": {
-                        "first": "<i class='fas fa-angle-double-left'></i>",
-                        "last": "<i class='fas fa-angle-double-right'></i>",
-                        "next": "<i class='fas fa-chevron-right'></i>",
-                        "previous": "<i class='fas fa-chevron-left'></i>"
-                    }
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "pagingType": "full_numbers",
+            "language": {
+                "paginate": {
+                    "first": "<i class='fas fa-angle-double-left'></i>",
+                    "last": "<i class='fas fa-angle-double-right'></i>",
+                    "next": "<i class='fas fa-chevron-right'></i>",
+                    "previous": "<i class='fas fa-chevron-left'></i>"
                 }
-            });
+            }
         });
-    </script>
+    });
+</script>
 @endpush
 
 @push('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 @endpush

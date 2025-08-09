@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Instansi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
@@ -18,7 +19,9 @@ class UsersController extends Controller
     public function index()
     {
         $user = User::all();
-        return view('user.main', compact('user'));
+        $role = Role::all();
+        $instansi = Instansi::all();
+        return view('user.main', compact('user','role','instansi'));
     }
 
     /**
@@ -28,7 +31,8 @@ class UsersController extends Controller
     {
         $role = Role::all();
         $user = User::all();
-        return view('user.tambah', compact('role','user'));
+        $instansi = Instansi::all();
+        return view('user.tambah', compact('role','user','instansi'));
     }
 
     /**
@@ -93,8 +97,9 @@ class UsersController extends Controller
     public function edit(string $id)
     {
         $user = User::find($id);
-        // $instansi = User::all();
-        return view('user.edit', compact('user','instansi'));
+        $instansi = Instansi::all();
+        $role = Role::all();
+        return view('user.edit', compact('user','instansi','role'));
     }
 
     /**
@@ -112,7 +117,7 @@ class UsersController extends Controller
         ]);
 
         if ($validate->fails()) {
-            return redirect()->route('users.create')->withErrors($validate)->withInput();
+            return redirect()->route('user.edit')->withErrors($validate)->withInput();
         }
 
         $imageName = time() . '.' . $request->foto->extension();
@@ -136,7 +141,7 @@ class UsersController extends Controller
         ]);
 
         $target->roles()->sync($request->role_id);
-        $target->roles()->sync($request->instansi_id);
+        $target->instansi()->sync($request->instansi_id);
 
         return redirect()->route('user.index');
 

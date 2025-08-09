@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Instansi;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Validator;
 
 class InstansiController extends Controller
@@ -15,7 +16,7 @@ class InstansiController extends Controller
     public function index()
     {
         $instansi = Instansi::all();
-        return view('tes_instansi.index', compact('instansi'));
+        return view('instansi.main', compact('instansi'));
     }
 
     /**
@@ -23,8 +24,8 @@ class InstansiController extends Controller
      */
     public function create()
     {
-        $user = User::role('operator_instansi')->get();
-        return view('tes_instansi.tambah', compact('user'));
+        $user = User::role('operator_instansi')->get(); 
+        return view('instansi.tambah', compact('user'));
     }
 
     /**
@@ -75,7 +76,7 @@ class InstansiController extends Controller
     {
         $instansi = Instansi::find($id);
         $user = User::role('operator_instansi')->get();
-        return view('tes_instansi.edit', compact('user', 'instansi'));
+        return view('instansi.edit', compact('user', 'instansi'));
     }
 
     /**
