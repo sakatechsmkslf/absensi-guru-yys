@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('kode');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
