@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('telp');
             $table->string('username');
             $table->string('password');
-            $table->string('uid_rfid');
+            $table->string('foto_presensi');
             $table->string('foto');
             $table->rememberToken();
             $table->timestamps();
