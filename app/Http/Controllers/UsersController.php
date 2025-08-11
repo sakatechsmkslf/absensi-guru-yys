@@ -36,7 +36,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //!jangan lupa tambahkan pengecekan apakah user punya role "admin_yayasan"
+        //TODO: jangan lupa tambahkan pengecekan apakah user punya role "admin_yayasan"
         //*sementara untuk keperluan testing
 
         // $validate = Validator::make($request->all(), [
@@ -51,15 +51,22 @@ class UsersController extends Controller
         //     return redirect()->route('users.create')->withErrors($validate)->withInput();
         // }
 
-        $imageName = time() . '.' . $request->foto->extension();
+        // * Upload untuk Foto Presensi
+
+        $imagePresensi = time() . '.' . $request->foto_presensi->extension();
+
+        $request->foto_presensi->move(public_path('foto_presensi/'), $imagePresensi);
+
+        // * Upload untuk Foto Profil
+        $imageName = time() . '.' . $request->foto_profil->extension();
 
         // $request->image->move(public_path('images'), $imageName);
 
-        // //img intervention
+        //img interevention
         $manager = ImageManager::withDriver(new Driver());
 
-        // //read image
-        $image = $manager->read($request->file('foto'));
+        //read image
+        $image = $manager->read($request->file('foto_profil'));
         $image->encode(new AutoEncoder(quality: 50))->save(public_path('foto/' . $imageName));
 
         $user = User::create([
@@ -67,8 +74,8 @@ class UsersController extends Controller
             "telp" => $request->telp,
             "username" => $request->username,
             "password" => $request->password,
-            "uid_rfid" => $request->uid_rfid,
-            "foto" => $imageName
+            "foto_presensi" => $imagePresensi,
+            "foto_profil" => $imageName
         ]);
 
         $user->instansi()->attach($request->instansi_id);
@@ -108,22 +115,32 @@ class UsersController extends Controller
             "telp" => "required|numeric",
             "username" => "required",
             "password" => "required",
-            "uid_rfid" => "required"
         ]);
 
         if ($validate->fails()) {
             return redirect()->route('users.create')->withErrors($validate)->withInput();
         }
 
-        $imageName = time() . '.' . $request->foto->extension();
+        if($request->file('foto')){
+
+        }
+
+        // * Upload untuk Foto Presensi
+
+        $imagePresensi = time() . '.' . $request->foto_presensi->extension();
+
+        $request->foto_presensi->move(public_path('foto_presensi/'), $imagePresensi);
+
+        // * Upload untuk Foto Profil
+        $imageName = time() . '.' . $request->foto_profil->extension();
 
         // $request->image->move(public_path('images'), $imageName);
 
-        //img intervention
+        //img interevention
         $manager = ImageManager::withDriver(new Driver());
 
         //read image
-        $image = $manager->read($request->file('foto'));
+        $image = $manager->read($request->file('foto_profil'));
         $image->encode(new AutoEncoder(quality: 50))->save(public_path('foto/' . $imageName));
 
         $target->update([
@@ -131,8 +148,8 @@ class UsersController extends Controller
             "telp" => $request->telp,
             "username" => $request->username,
             "password" => $request->password,
-            "uid_rfid" => $request->uid_rfid,
-            "foto" => $imageName
+            "foto_presensi" => $imagePresensi,
+            "foto_profil" => $imageName
         ]);
 
         $target->roles()->sync($request->role_id);
