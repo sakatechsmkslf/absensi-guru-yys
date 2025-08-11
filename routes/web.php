@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsersController;
@@ -12,3 +13,6 @@ Route::get('/', function () {
 Route::resource('user', UsersController::class);
 Route::resource('role', RoleController::class);
 Route::resource('instansi', InstansiController::class);
+
+Route::get('login', [AuthController::class, 'viewLogin']);
+Route::post('doLogin', [AuthController::class,'login'])->name('doLogin');
