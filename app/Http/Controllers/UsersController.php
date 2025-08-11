@@ -112,12 +112,11 @@ class UsersController extends Controller
             "name" => "required|min:5",
             "telp" => "required|numeric",
             "username" => "required",
-            "password" => "required",
-            "uid_rfid" => "required"
+            "uid_rfid" => "required",
         ]);
 
         if ($validate->fails()) {
-            return redirect()->route('user.edit')->withErrors($validate)->withInput();
+            return redirect()->route('user.edit', $id)->withErrors($validate)->withInput();
         }
 
         $imageName = time() . '.' . $request->foto->extension();

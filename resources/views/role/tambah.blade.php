@@ -14,15 +14,6 @@
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0">Tambah Role</h5>
                 </div>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <div class="card-body">
                     <form action="{{ route('role.store') }}" method="POST">
                         @csrf
@@ -32,11 +23,12 @@
                                 placeholder="Masukkan nama">
                         </div>
                         @foreach ($permission as $item)
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $item->name }}"
-                                {{ collect(old('permissions'))->contains($item->name) ? 'checked' : '' }}>
-                            <label class="form-check-label">{{ $item->name }}</label>
-                        </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="permissions[]"
+                                    value="{{ $item->name }}"
+                                    {{ collect(old('permissions'))->contains($item->name) ? 'checked' : '' }}>
+                                <label class="form-check-label">{{ $item->name }}</label>
+                            </div>
                         @endforeach
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary px-4">Simpan</button>

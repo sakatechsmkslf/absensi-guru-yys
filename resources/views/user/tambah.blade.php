@@ -14,6 +14,11 @@
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0">Tambah User</h5>
                 </div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
                 <div class="card-body">
                     <form enctype="multipart/form-data" action="{{ route('user.store') }}" method="POST">
                         @csrf

@@ -24,7 +24,7 @@ class InstansiController extends Controller
      */
     public function create()
     {
-        $user = User::role('operator_instansi')->get(); 
+        $user = User::role('operator_instansi')->get();
         return view('instansi.tambah', compact('user'));
     }
 
