@@ -129,32 +129,22 @@ class UsersController extends Controller
             "telp" => "required|numeric",
             "username" => "required",
             "password" => "required",
+            "uid_rfid" => "required"
         ]);
 
         if ($validate->fails()) {
-            return redirect()->route('user.edit', $id)->withErrors($validate)->withInput();
+            return redirect()->route('users.create')->withErrors($validate)->withInput();
         }
 
-        if ($request->file('foto')) {
-
-        }
-
-        // * Upload untuk Foto Presensi
-
-        $imagePresensi = time() . '.' . $request->foto_presensi->extension();
-
-        $request->foto_presensi->move(public_path('foto_presensi/'), $imagePresensi);
-
-        // * Upload untuk Foto Profil
-        $imageName = time() . '.' . $request->foto_profil->extension();
+        $imageName = time() . '.' . $request->foto->extension();
 
         // $request->image->move(public_path('images'), $imageName);
 
-        //img interevention
+        //img intervention
         $manager = ImageManager::withDriver(new Driver());
 
         //read image
-        $image = $manager->read($request->file('foto_profil'));
+        $image = $manager->read($request->file('foto'));
         $image->encode(new AutoEncoder(quality: 50))->save(public_path('foto/' . $imageName));
 
         $target->update([
@@ -162,15 +152,14 @@ class UsersController extends Controller
             "telp" => $request->telp,
             "username" => $request->username,
             "password" => $request->password,
-            "foto_presensi" => $imagePresensi,
-            "foto_profil" => $imageName
+            "uid_rfid" => $request->uid_rfid,
+            "foto" => $imageName
         ]);
 
         $target->roles()->sync($request->role_id);
-        $target->instansi()->sync($request->instansi_id);
+        $target->roles()->sync($request->instansi_id);
 
         return redirect()->route('user.index');
-
 
     }
 
