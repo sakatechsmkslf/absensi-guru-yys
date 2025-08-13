@@ -104,21 +104,16 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
-         $user = User::findOrFail($id);
+        $user = User::find($id);
+        $instansi = Instansi::all();
+        $role = Role::all();
 
-    // semua instansi untuk pilihan
-    $instansi = Instansi::all();
+        $userRoles = $user->roles()->pluck('roles.id')->toArray();
+        $userInstansi = $user->instansi()->pluck('instansis.id')->toArray();
 
-    // semua role untuk pilihan
-    $role = Role::all();
+        return view('user.edit', compact('user', 'instansi', 'role', 'userRoles', 'userInstansi'));
 
-    // id role yang user punya (buat checked di form)
-    $userRoles = $user->roles()->pluck('id')->toArray();
-
-    // id instansi yang user punya (buat checked di form)
-    $userInstansi = $user->instansi()->pluck('id')->toArray();
-
-    return view('user.edit', compact('user', 'instansi', 'role', 'userRoles', 'userInstansi'));
+        return view('user.edit', compact('user', 'instansi', 'role'));
     }
 
 

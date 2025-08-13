@@ -61,11 +61,11 @@
                             <div class="col-md-6 mb-3">
                                 <label for="foto" class="form-label">Foto</label>
                                 <input type="file" class="form-control border-primary" id="foto" name="foto">
-                                @if ($user->foto)
+                                {{-- @if ($user->foto)
                                     <small class="d-block mt-2">Foto saat ini:</small>
                                     <img src="{{ asset('storage/'.$user->foto) }}" alt="Foto User" width="80"
                                         class="rounded border border-primary mt-1">
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
 
@@ -77,10 +77,10 @@
                                     <div class="selectgroup selectgroup-pills">
                                         @forelse ($role as $item)
                                             <label class="selectgroup-item">
-                                                {{-- <input type="checkbox" name="role_id[]" value="{{ $item->id }}"
+                                                <input type="checkbox" name="role_id[]" value="{{ $item->id }}"
                                                     class="selectgroup-input"
                                                     {{ in_array($item->id, old('role_id', $userRoles)) ? 'checked' : '' }}>
-                                                <span class="selectgroup-button bg-primary text-white">{{ $item->name }}</span> --}}
+                                                <span class="selectgroup-button bg-primary text-white">{{ $item->name }}</span>
                                             </label>
                                         @empty
                                             <p class="text-muted mb-0">Tidak ada role</p>
