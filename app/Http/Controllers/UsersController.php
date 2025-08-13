@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Instansi;
 use App\Models\User;
+use DB;
 use Illuminate\Http\Request;
 use Validator;
 use Spatie\Permission\Models\Role;
@@ -21,7 +22,7 @@ class UsersController extends Controller
         $user = User::all();
         $role = Role::all();
         $instansi = Instansi::all();
-        return view('user.main', compact('user','role','instansi'));
+        return view('user.main', compact('user', 'role', 'instansi'));
     }
 
     /**
@@ -32,7 +33,7 @@ class UsersController extends Controller
         $role = Role::all();
         $user = User::all();
         $instansi = Instansi::all();
-        return view('user.tambah', compact('role','user','instansi'));
+        return view('user.tambah', compact('role', 'user', 'instansi'));
     }
 
     /**
@@ -103,11 +104,24 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::find($id);
-        $instansi = Instansi::all();
-        $role = Role::all();
-        return view('user.edit', compact('user','instansi','role'));
+         $user = User::findOrFail($id);
+
+    // semua instansi untuk pilihan
+    $instansi = Instansi::all();
+
+    // semua role untuk pilihan
+    $role = Role::all();
+
+    // id role yang user punya (buat checked di form)
+    $userRoles = $user->roles()->pluck('id')->toArray();
+
+    // id instansi yang user punya (buat checked di form)
+    $userInstansi = $user->instansi()->pluck('id')->toArray();
+
+    return view('user.edit', compact('user', 'instansi', 'role', 'userRoles', 'userInstansi'));
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -126,7 +140,7 @@ class UsersController extends Controller
             return redirect()->route('user.edit', $id)->withErrors($validate)->withInput();
         }
 
-        if($request->file('foto')){
+        if ($request->file('foto')) {
 
         }
 

@@ -45,7 +45,7 @@
                                                 <td>{{$item->uid_rfid}}</td>
                                                 <td>{{$item->foto}}</td>
                                                 <td class="d-flex gap-2 m-4">
-                                                   <a class="btn btn-warning" href="{{ route('user.edit', ['user' => $item->id]) }}">Edit</a>
+                                                   <a class="btn btn-warning" href="{{ route('user.edit',  $item->id) }}">Edit</a>
                                                     <form action="{{route('user.destroy', $item->id)}}" method="POST">
                                                         @csrf
                                                         @method('delete')
@@ -68,6 +68,30 @@
 @endsection
 
 @push('script')
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "pagingType": "full_numbers",
+                "language": {
+                    "paginate": {
+                        "first": "<i class='fas fa-angle-double-left'></i>",
+                        "last": "<i class='fas fa-angle-double-right'></i>",
+                        "next": "<i class='fas fa-chevron-right'></i>",
+                        "previous": "<i class='fas fa-chevron-left'></i>"
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
+
+@push('style')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+@endpush
+
+{{-- @push('script')
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
@@ -89,4 +113,4 @@
 
 @push('style')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-@endpush
+@endpush --}}
