@@ -15,7 +15,10 @@ class TapelController extends Controller
     public function index()
     {
         $tapel = Tapel::all();
-        return view('', compact('tapel'));
+
+        //! diganti sesuai viewnya. (view ini hanya untuk kebutuhan testing tampil data)
+        //! jika sudah diganti maka hapus comment ini
+        return view('tesTapel.index', compact('tapel'));
     }
 
     /**
@@ -23,7 +26,9 @@ class TapelController extends Controller
      */
     public function create()
     {
-        return view('');
+        //! diganti sesuai viewnya. (view ini hanya untuk kebutuhan testing tambah)
+        //! jika sudah diganti maka hapus comment ini
+        return view('tesTapel.tambah');
     }
 
     /**
@@ -36,10 +41,12 @@ class TapelController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect()->route('instansi.create')->withErrors($validate)->withInput();
+            return redirect()->route('tapel.create')->withErrors($validate)->withInput();
         }
 
-        Tapel::create([$validate]);
+        Tapel::create([
+            "kode" => $request->kode
+        ]);
 
         return redirect()->route('tapel.index');
     }
@@ -58,7 +65,10 @@ class TapelController extends Controller
     public function edit(string $id)
     {
         $tapel = Tapel::find($id);
-        return view('', compact('tapel'));
+
+        //! diganti sesuai viewnya. (view ini hanya untuk kebutuhan testing edit data)
+        //! jika sudah diganti maka hapus comment ini
+        return view('tesTapel.edit', compact('tapel'));
     }
 
     /**
@@ -77,7 +87,7 @@ class TapelController extends Controller
         }
 
         $target->update([
-            $validate
+            "kode" => $request->kode
         ]);
 
         return redirect()->route('tapel.index');
