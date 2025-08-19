@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'telp' => '081',
             'username' => 'admin1',
             'password' => '123',
-            'uid_rfid' => '1234',
+            'foto_presensi' => 'foto.jpg',
             'foto' => 'admin.jpg',
         ]);
         $admin->assignRole('admin_yayasan');
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             "telp" => '082',
             'username' => 'operator',
             'password' => '123',
-            'uid_rfid' => '12345',
+            'foto_presensi' => 'foto.jpg',
             'foto' => 'operator.jpg'
         ]);
         $operator->assignRole('operator_instansi');
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             "telp" => '083',
             "username" => 'pendidik',
             'password' => '123',
-            'uid_rfid' => '132',
+            'foto_presensi' => 'foto.jpg',
             "foto" => 'pendidik.jpg'
         ]);
         $pendidik->assignRole('tenaga_pendidik');
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
             'telp' => '085',
             'username' => 'pendidikan',
             'password' => '123',
-            "uid_rfid" => '145',
+            'foto_presensi' => 'foto.jpg',
             "foto" => 'pendidikan.jpg'
         ]);
         $pendidikan->assignRole('tenaga_kependidikan');
