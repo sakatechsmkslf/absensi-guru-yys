@@ -54,9 +54,8 @@
                         <!-- uid & foto -->
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="uid_rfid" class="form-label">UID RFID</label>
-                                <input type="text" class="form-control" id="uid_rfid" name="uid_rfid"
-                                    placeholder="Masukkan UID RFID">
+                                <label for="foto_presensi" class="form-label">Foto Presensi</label>
+                                <input type="file" class="form-control" id="foto_presensi" name="foto_presensi">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="foto" class="form-label">Foto</label>

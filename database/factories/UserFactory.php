@@ -36,7 +36,7 @@ class UserFactory extends Factory
             'telp' => fake()->randomNumber(),
             'username' => fake()->name(),
             'password' => static::$password ??= Hash::make('password'),
-            'uid_rfid' => fake()->unique()->uuid(),
+            'foto_presensi' => 'foto.jpg',
             'foto' => 'foto.jpg',
             'remember_token' => Str::random(10)
         ];

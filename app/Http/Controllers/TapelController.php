@@ -18,7 +18,7 @@ class TapelController extends Controller
 
         //! diganti sesuai viewnya. (view ini hanya untuk kebutuhan testing tampil data)
         //! jika sudah diganti maka hapus comment ini
-        return view('tesTapel.index', compact('tapel'));
+        return view('tapel.main', compact('tapel'));
     }
 
     /**
@@ -28,7 +28,7 @@ class TapelController extends Controller
     {
         //! diganti sesuai viewnya. (view ini hanya untuk kebutuhan testing tambah)
         //! jika sudah diganti maka hapus comment ini
-        return view('tesTapel.tambah');
+        return view('tapel.tambah');
     }
 
     /**
@@ -68,7 +68,7 @@ class TapelController extends Controller
 
         //! diganti sesuai viewnya. (view ini hanya untuk kebutuhan testing edit data)
         //! jika sudah diganti maka hapus comment ini
-        return view('tesTapel.edit', compact('tapel'));
+        return view('tapel.edit', compact('tapel'));
     }
 
     /**
