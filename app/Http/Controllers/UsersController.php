@@ -113,7 +113,7 @@ class UsersController extends Controller
 
         return view('user.edit', compact('user', 'instansi', 'role', 'userRoles', 'userInstansi'));
 
-        return view('user.edit', compact('user', 'instansi', 'role'));
+        // return view('user.edit', compact('user', 'instansi', 'role'));
     }
 
 
@@ -133,8 +133,9 @@ class UsersController extends Controller
         ]);
 
         if ($validate->fails()) {
-            return redirect()->route('users.create')->withErrors($validate)->withInput();
+            return redirect()->back()->withErrors($validate)->withInput();
         }
+
 
         $imageName = time() . '.' . $request->foto->extension();
 

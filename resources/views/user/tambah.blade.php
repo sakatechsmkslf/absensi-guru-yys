@@ -65,40 +65,40 @@
                         </div>
 
                         <!-- role & instansi -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Role</label>
-                                    <div class="selectgroup selectgroup-pills">
-                                        @forelse ($role as $item)
-                                            <label class="selectgroup-item">
-                                                <input type="checkbox" name="role_id[]" value="{{ $item->id }}"
-                                                    class="selectgroup-input"
-                                                    {{ collect(old('role_id'))->contains($item->id) ? 'checked' : '' }}>
-                                                <span class="selectgroup-button">{{ $item->name }}</span>
-                                            </label>
-                                        @empty
-                                            <p class="text-muted mb-0">Tidak ada role</p>
-                                        @endforelse
-                                    </div>
+                        <!-- role -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <div class="selectgroup selectgroup-pills">
+                                    @forelse ($role as $item)
+                                        <label class="selectgroup-item">
+                                            <input type="checkbox" name="role_id[]" value="{{ $item->id }}"
+                                                class="selectgroup-input"
+                                                {{ collect(old('role_id'))->contains($item->id) ? 'checked' : '' }}>
+                                            <span class="selectgroup-button">{{ $item->name }}</span>
+                                        </label>
+                                    @empty
+                                        <p class="text-muted mb-0">Tidak ada role</p>
+                                    @endforelse
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Instansi</label>
-                                    <div class="selectgroup selectgroup-pills">
-                                        @forelse ($instansi as $item)
-                                            <label class="selectgroup-item">
-                                                <input type="checkbox" name="instansi_id[]" value="{{ $item->id }}"
-                                                    class="selectgroup-input"
-                                                    {{ collect(old('instansi_id'))->contains($item->id) ? 'checked' : '' }}>
-                                                <span class="selectgroup-button">{{ $item->nama_instansi }}</span>
-                                            </label>
-                                        @empty
-                                            <p class="text-muted mb-0">Tidak ada instansi</p>
-                                        @endforelse
-                                    </div>
+                        <!-- instansi -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Instansi</label>
+                                <div class="selectgroup selectgroup-pills">
+                                    @forelse ($instansi as $item)
+                                        <label class="selectgroup-item">
+                                            <input type="checkbox" name="instansi_id[]" value="{{ $item->id }}"
+                                                class="selectgroup-input"
+                                                {{ collect(old('instansi_id'))->contains($item->id) ? 'checked' : '' }}>
+                                            <span class="selectgroup-button">{{ $item->nama_instansi }}</span>
+                                        </label>
+                                    @empty
+                                        <p class="text-muted mb-0">Tidak ada instansi</p>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
