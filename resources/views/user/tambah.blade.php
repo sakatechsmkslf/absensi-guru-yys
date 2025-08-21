@@ -58,8 +58,8 @@
                                 <input type="file" class="form-control" id="foto_presensi" name="foto_presensi">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="foto" class="form-label">Foto</label>
-                                <input type="file" class="form-control" id="foto" name="foto">
+                                <label for="foto_profil" class="form-label">Foto</label>
+                                <input type="file" class="form-control" id="foto_profil" name="foto_profil">
                             </div>
                         </div>
 

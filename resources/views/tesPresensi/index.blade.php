@@ -107,9 +107,9 @@
 
         //? kemungkinan untuk mengambil model library (belum pasti)
         async function loadModels() {
-            await faceapi.nets.tinyFaceDetector.loadFromUri('./models');
-            await faceapi.nets.faceLandmark68Net.loadFromUri('./models');
-            await faceapi.nets.faceRecognitionNet.loadFromUri('./models'); // Tambahkan ini
+            await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+            await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+            await faceapi.nets.faceRecognitionNet.loadFromUri('/models'); // Tambahkan ini
         }
 
         //* mulai presensi
@@ -138,7 +138,7 @@
 
             const interval = setInterval(async () => {
                 const detections = await faceapi.detectAllFaces(video, new faceapi
-                .TinyFaceDetectorOptions()).withFaceLandmarks();
+                    .TinyFaceDetectorOptions()).withFaceLandmarks();
                 const statusWajah = document.getElementById('status-wajah');
 
                 if (detections.length !== 1) {
@@ -195,7 +195,7 @@
 
             // Face matching dengan foto asli pegawai
             const imgPegawai = await faceapi.fetchImage(
-            'foto_asli/pegawai1.jpg'); //! bisa diganti tergantung foto yang dimiliki user
+                'foto_asli/pegawai1.jpg'); //! bisa diganti tergantung foto yang dimiliki user
             const deteksiPegawai = await faceapi
                 .detectSingleFace(imgPegawai, new faceapi.TinyFaceDetectorOptions())
                 .withFaceLandmarks()

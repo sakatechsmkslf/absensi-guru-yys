@@ -18,10 +18,12 @@ class UserSeeder extends Seeder
             'telp' => '081',
             'username' => 'admin1',
             'password' => '123',
-            'foto_presensi' => 'foto.jpg',
-            'foto' => 'admin.jpg',
+            'foto_presensi' => 'pegawai.jpeg',
+            'foto' => 'pegawai.jpeg',
         ]);
         $admin->assignRole('admin_yayasan');
+        $admin->instansi()->attach([1, 2]);
+
 
         $operator = User::create([
             "name" => 'Pak Operator',

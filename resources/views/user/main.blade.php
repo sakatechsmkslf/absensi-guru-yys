@@ -44,13 +44,13 @@
                                                 <td>{{ $item->username }}</td>
                                                 <td>{{ $item->foto_presensi }}</td>
                                                 <td>{{ $item->foto }}</td>
-                                                <td class="d-flex gap-2 m-4">
-                                                    <a class="btn btn-warning"
+                                                <td class="d-flex">
+                                                    <a class="btn btn-warning mx-1"
                                                         href="{{ route('user.edit', $item->id) }}">Edit</a>
                                                     <form action="{{ route('user.destroy', $item->id) }}" method="POST">
                                                         @csrf
                                                         @method('delete')
-                                                        <button class="btn btn-danger">Hapus</button>
+                                                        <button class="btn btn-danger mx-1">Hapus</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -69,7 +69,7 @@
 @endsection
 
 @push('script')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
