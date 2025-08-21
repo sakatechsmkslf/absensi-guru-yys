@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
             'telp' => '081',
             'username' => 'admin1',
             'password' => '123',
-            'foto_presensi' => 'pegawai.jpeg',
-            'foto' => 'pegawai.jpeg',
+            'foto_presensi' => 'pegawai.jpg',
+            'foto' => 'pegawai.jpg',
         ]);
         $admin->assignRole('admin_yayasan');
         $admin->instansi()->attach([1, 2]);
