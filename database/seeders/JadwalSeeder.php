@@ -25,11 +25,11 @@ class JadwalSeeder extends Seeder
 
         DB::table('jadwals')->insert([
             "tapel_id" => 1,
-            "instansi_id" => 2,
+            "instansi_id" => 1,
             "user_id" => 3,
             "hari" => Carbon::parse('19 August 2025')->toDateString(),
-            "datang" => Carbon::createFromTime('15', '30', '00'),
-            "pulang" => Carbon::createFromTime('14', '00', '00'),
+            "datang" => Carbon::createFromTime('11', '20', '00'),
+            "pulang" => Carbon::createFromTime('11', '30', '00'),
         ]);
     }
 }

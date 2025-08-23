@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    {{-- Perlu ditambahkan !penting! --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- Perlu ditambahkan !penting! --}}
     <title>Presensi - Selfie, Lokasi, Perangkat</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -226,9 +229,9 @@
 
             //pengecekan wajah apakah wajah cocok dengan pengguna
             const jarak = faceapi.euclideanDistance(deteksiPegawai.descriptor, deteksiSelfie.descriptor);
-            const threshold = 0.6;
+            const threshold = 0.4;
             const similarity = Math.max(0, (1 - jarak)) * 100;
-
+            const akurasi = similarity.toFixed(2);
             const matchingInfo = document.getElementById('matching-info');
             matchingInfo.innerText = `Tingkat kemiripan wajah: ${similarity.toFixed(2)}%`;
             matchingInfo.style.display = 'block';
@@ -338,7 +341,8 @@
                                     console.log('didalam');
                                     return {
                                         valid: true,
-                                        instansi: lokasi.nama_instansi
+                                        instansi: lokasi.nama_instansi,
+                                        id: lokasi.instansi_id
                                     };
                                     // return true, namaInstansi; // valid, berada dalam salah satu instansi
                                 }
@@ -351,6 +355,28 @@
                         }
 
                         const hasil = cekLokasi(latitude, longitude);
+                        const instansi = hasil.id;
+                        console.log(instansi);
+
+
+                        fetch("{{ route('prosesPresensi') }}", {
+                                method: "POST",
+                                headers: {
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute('content'),
+                                    "X-Requested-With": "XMLHttpRequest",
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    instansi_id: instansi,
+                                    akurasi: akurasi,
+                                    userAgent: navigator.userAgent,
+                                })
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log("Response Laravel:", data);
+                            });
 
                         if (hasil.valid) {
                             status.innerText = `✅ Presensi sukses: lokasi valid.
@@ -390,6 +416,8 @@
             document.getElementById('perangkat').innerText = perangkatInfo;
 
             status.style.display = 'block';
+
+
         }
     </script>
 </body>
