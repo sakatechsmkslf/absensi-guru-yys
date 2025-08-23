@@ -27,6 +27,7 @@
                             </div>
 
                             <!-- instansi checkbox -->
+                            {{-- Untuk tambah instansi tidak perlu pakai array, karena satu instansi hanya boleh memberikan 1 jadwal kepada setiap user dalam satu hari --}}
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Instansi</label><br>
                                 <div class="form-check form-check-inline">
