@@ -23,8 +23,8 @@ Route::get('login', [AuthController::class, 'viewLogin']);
 Route::post('doLogin', [AuthController::class, 'login'])->name('doLogin');
 Route::resource('tapel', TapelController::class);
 Route::resource('jadwal', JadwalController::class);
-Route::get('jadwal', [JadwalController::class, 'store']);
-;
+// Route::resource(', JadwalController::class);
+// Route::get('jadwal', [JadwalController::class]);
 
 Route::get('/dashboard', function () {
     return view('dashboard.main');
