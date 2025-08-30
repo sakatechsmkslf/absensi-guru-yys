@@ -16,7 +16,7 @@ Route::resource('user', UsersController::class);
 Route::resource('role', RoleController::class);
 Route::resource('instansi', InstansiController::class);
 Route::view('loginjal','auth.login');
-Route::view('jadwal','jadwal.main');
+Route::view('jadwal','jadwal.tambah');
 
 Route::get('login', [AuthController::class, 'viewLogin']);
 Route::post('doLogin', [AuthController::class, 'login'])->name('doLogin');
