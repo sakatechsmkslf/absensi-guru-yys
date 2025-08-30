@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('keterangan');
             $table->date('tanggal');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
