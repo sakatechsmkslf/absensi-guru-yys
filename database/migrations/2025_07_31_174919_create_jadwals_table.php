@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('datang');
             $table->time('pulang');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

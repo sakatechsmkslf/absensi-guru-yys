@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,9 +15,12 @@ return new class extends Migration
             $table->string('nama_instansi');
             $table->string('kepala_instansi');
             $table->string('alamat_instansi');
-            $table->text('tepl_instansi');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->text('telp_instansi');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
