@@ -32,4 +32,5 @@ Route::get('/dashboard', function () {
 
 Route::controller(PresensiController::class)->group(function () {
     Route::get('presensi', 'viewPresensi');
+    Route::post('prosesPresensi', 'prosesPresensi')->name('prosesPresensi');
 });
