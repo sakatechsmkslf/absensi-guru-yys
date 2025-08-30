@@ -18,9 +18,9 @@
                     <form action="{{ route('tapel.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Nama</label>
-                            <input type="number" class="form-control" id="name" name="name"
-                                placeholder="Masukkan Tahun">
+                            <label for="kode" class="form-label">Kode Tapel</label>
+                            <input type="s" class="form-control" id="kode" name="kode"
+                                placeholder="Masukkan Tapel">
                         </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary px-4">Simpan</button>

@@ -34,14 +34,14 @@
 
                                         @forelse ($role as $item)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td class="">{{ $loop->iteration }}</td>
                                                 <td>{{ $item->name }}</td>
-                                                <td class="d-flex gap-2 m-4">
+                                                <td class="d-flex">
                                                     <a href="{{route('role.edit', $item->id )}}" class="btn btn-warning">Edit</a>
                                                     <form action="{{route('role.destroy', $item->id)}}" method="POST">
                                                         @csrf
                                                         @method('delete')
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        <button type="submit" class="btn btn-danger mx-2">Hapus</button>
                                                     </form>
                                                 </td>
 
@@ -64,7 +64,7 @@
 @endsection
 
 @push('script')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {

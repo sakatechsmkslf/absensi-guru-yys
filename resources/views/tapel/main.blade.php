@@ -35,14 +35,14 @@
                                         @forelse ($tapel as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->name }}</td>
-                                                <td class="d-flex gap-2 m-4">
-                                                    <a href="{{ route('role.edit', $item->id) }}"
+                                                <td>{{ $item->kode }}</td>
+                                                <td class="d-flex">
+                                                    <a href="{{ route('tapel.edit', $item->id) }}"
                                                         class="btn btn-warning">Edit</a>
-                                                    <form action="{{ route('role.destroy', $item->id) }}" method="POST">
+                                                    <form action="{{ route('tapel.destroy', $item->id) }}" method="POST">
                                                         @csrf
                                                         @method('delete')
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        <button type="submit" class="btn btn-danger mx-2">Hapus</button>
                                                     </form>
                                                 </td>
 
@@ -67,12 +67,19 @@
 @endsection
 
 @push('script')
-    {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> --}}
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
-                responsive: true
+                "pagingType": "full_numbers", // biar ada prev, next, first, last
+                "language": {
+                    "paginate": {
+                        "first": "<i class='fas fa-angle-double-left'></i>",
+                        "last": "<i class='fas fa-angle-double-right'></i>",
+                        "next": "<i class='fas fa-chevron-right'></i>",
+                        "previous": "<i class='fas fa-chevron-left'></i>"
+                    }
+                }
             });
         });
     </script>

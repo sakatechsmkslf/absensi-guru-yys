@@ -32,6 +32,7 @@ class AuthController extends Controller
                 return view('tesAuth.dasOperator');
             }
 
+            
             //* login untuk tenaga pendidik
             else if($user->hasRole('tenaga_pendidik')){
                 return view('tesAuth.dasPendidik');

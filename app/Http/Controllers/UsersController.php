@@ -80,7 +80,7 @@ class UsersController extends Controller
             "username" => $request->username,
             "password" => $request->password,
             "foto_presensi" => $imagePresensi,
-            "foto_profil" => $imageName
+            "foto_profil" => $imageName,'foto'
         ]);
 
         $user->instansi()->attach($request->instansi_id);

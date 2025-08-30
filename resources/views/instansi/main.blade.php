@@ -51,9 +51,9 @@
                                                         @endif
                                                     @endforeach
                                                 </td>
-                                                <td class="d-flex gap-2">
+                                                <td class="d-flex">
                                                     <a href="{{ route('instansi.edit', $item->id) }}"
-                                                        class="btn btn-warning">Edit</a>
+                                                        class="btn btn-warning mx-2">Edit</a>
                                                     <form action="{{ route('instansi.destroy', $item->id) }}" method="POST"
                                                         onsubmit="return confirm('Yakin ingin menghapus?')">
                                                         @csrf
@@ -78,17 +78,28 @@
     </section>
 @endsection
 
+@push('script')
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "pagingType": "full_numbers", // biar ada prev, next, first, last
+                "language": {
+                    "paginate": {
+                        "first": "<i class='fas fa-angle-double-left'></i>",
+                        "last": "<i class='fas fa-angle-double-right'></i>",
+                        "next": "<i class='fas fa-chevron-right'></i>",
+                        "previous": "<i class='fas fa-chevron-left'></i>"
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
+
 @push('style')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 @endpush
 
-@push('script')
-<script>
-  $(document).ready(function () {
-    $('#example').DataTable({
-      responsive: true
-    });
-  });
-</script>
-@endpush
 
