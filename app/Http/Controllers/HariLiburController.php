@@ -16,7 +16,7 @@ class HariLiburController extends Controller
      */
     public function index()
     {
-        $hariLibur = HariLibur::all();
+        $hariLibur = HariLibur::where('instansi_id', 3); //nanti diubah agar instansi disamakan dengan instansi nya operator
         return view('instansi.main', compact('hariLibur'));
     }
 
@@ -27,7 +27,7 @@ class HariLiburController extends Controller
     {
         $tapel = Tapel::all();
         $instansi = Instansi::where('id', 3); //nanti diubah agar instansi yang muncul sesuai dengan instansi nya operator
-        return view('instansi.create', compact('tapel', 'instansi'));
+        return view('', compact('tapel', 'instansi'));
 
     }
 
@@ -47,10 +47,24 @@ class HariLiburController extends Controller
         ]);
 
         if ($validate->fails()) {
-            return redirect()->route('instansi.create')->withErrors($validate)->withInput();
+            return redirect()->route('hariLibur.create')->withErrors($validate)->withInput();
         }
 
         $instansiOperator = $user->instansi()->where('instansi_id', $request->instansi_id)->first();
+
+        if (!$instansiOperator) {
+            return redirect()->back()->with('error', 'Anda tidak terdaftar di instansi ini');
+        } else {
+            HariLibur::create([
+                'tapel_id' => $request->tapel_id,
+                'instansi_id' => $request->instansi_id,
+                'keterangan' => $request->keterangan,
+                'tanggal' => $request->tanggal
+            ]);
+
+            return redirect()->route('hariLibur.index')->with('success', 'Berhasil menambah Hari Libur');
+
+        }
     }
 
     /**
@@ -66,7 +80,9 @@ class HariLiburController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tapel = Tapel::all();
+        $instansi = Instansi::where('id', 3); //nanti diubah agar instansi yang muncul sesuai dengan instansi nya operator
+        return view('', compact('tapel', 'instansi'));
     }
 
     /**
@@ -74,7 +90,35 @@ class HariLiburController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = auth()->user();
+        $hariLibur = HariLibur::findOrFail($id);
+
+        $validate = Validator::make($request->all(), [
+            'tapel_id' => 'required|exists:tapels,id',
+            'instansi_id' => 'required|exists:instansis,id',
+            'keterangan' => 'required|string',
+            'tanggal' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->route('hariLibur.create')->withErrors($validate)->withInput();
+        }
+
+        $instansiOperator = $user->instansi()->where('instansi_id', $request->instansi_id)->first();
+
+        if (!$instansiOperator) {
+            return redirect()->back()->with('error', 'Anda tidak terdaftar di instansi ini');
+        } else {
+            $hariLibur->update([
+                'tapel_id' => $request->tapel_id,
+                'instansi_id' => $request->instansi_id,
+                'keterangan' => $request->keterangan,
+                'tanggal' => $request->tanggal
+            ]);
+
+            return redirect()->route('hariLibur.index')->with('success', 'Berhasil menambah Hari Libur');
+
+        }
     }
 
     /**
@@ -82,6 +126,8 @@ class HariLiburController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $target = HariLibur::find($id);
+        $target->delete();
+        return redirect()->route('hariLibur.index');
     }
 }
